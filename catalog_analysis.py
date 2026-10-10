@@ -199,3 +199,34 @@ def top_n_by_rating(movies, n=3):
         return []
     ranked_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
     return [(movie["title"], movie["rating"]) for movie in ranked_movies[:n]]
+
+
+# Этап 6. Словари.
+def count_by_genre(movies):
+    """Посчитать фильмы каждого жанра через цикл и dict.get()."""
+    counts = {}
+    for movie in movies:
+        for genre in movie["genres"]:
+            counts[genre] = counts.get(genre, 0) + 1
+    return counts
+
+
+def actor_filmography(movies):
+    """Собрать списки названий фильмов для каждого актёра."""
+    filmography = {}
+    for movie in movies:
+        for actor in movie["actors"]:
+            titles = filmography.get(actor, [])
+            titles.append(movie["title"])
+            filmography[actor] = titles
+    return filmography
+
+
+def ratings_above_average(movies):
+    """Построить генератором словаря рейтинги строго выше среднего."""
+    average = average_rating(movies)
+    return {
+        movie["title"]: movie["rating"]
+        for movie in movies
+        if movie["rating"] > average
+    }
