@@ -230,3 +230,22 @@ def ratings_above_average(movies):
         for movie in movies
         if movie["rating"] > average
     }
+
+
+# Этап 7. Множества.
+def all_genres(movies):
+    """Объединить множества жанров всех фильмов."""
+    genres = set()
+    for movie in movies:
+        genres.update(movie["genres"])
+    return genres
+
+
+def common_actors(movie1, movie2):
+    """Вернуть пересечение множеств актёров двух фильмов."""
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+
+def genres_only_in_one(movies_a, movies_b):
+    """Вернуть жанры первой подборки, отсутствующие во второй."""
+    return all_genres(movies_a) - all_genres(movies_b)
